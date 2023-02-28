@@ -73,7 +73,7 @@ export default class ClassificationUtil {
       console.log("model weights loaded");
       console.log("loading possible exercises and poses");
       //const exercises = require("./assets/exercises.json");
-      modelClasses = exerciseOptions[exerciseType];
+      modelClasses = exerciseOptions[exerciseType].reverse();
       console.log("loaded model classes");
       console.log(modelClasses);
       //const modelClasses = require("./assets/classes.json");
