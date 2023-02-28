@@ -137,7 +137,7 @@ export default function PoseDetector({ route }) {
         {renderLoading()}
         <PoseTracker
           // Inputs/Props
-          exerciseType={"jumping-jack"}
+          exerciseType={"squat"}
           showFps={true}
           renderKeypoints={true}
           estimationModelType={"full"}

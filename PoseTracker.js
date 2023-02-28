@@ -212,7 +212,7 @@ export default function PoseTracker({
 
         if (poseName && confidence && confidence > 0.7) {
           classifiedPose([poseName, confidence]);
-          console.log("Pose Name: ", poseName, " Confidence: ", confidence);
+          //console.log("Pose Name: ", poseName, " Confidence: ", confidence);
           isDetecting(false);
 
           if (!resetExercises) {
@@ -220,6 +220,7 @@ export default function PoseTracker({
           }
         }
       } else {
+        console.log("pose confidence not high enough");
         classifiedPose([undefinedPoseName, 0.0]);
         isDetecting(true);
       }

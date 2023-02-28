@@ -66,10 +66,10 @@ export default class ClassificationUtil {
     const modelPath = "./assets/models/" + exerciseType + "/";
     try {
       console.log("loading model.json");
-      const modelJSON = require("./assets/models/jumping-jack/model.json");
+      const modelJSON = require("./assets/models/squat/model.json");
       console.log("model.json loaded");
       console.log("loading model weights");
-      const modelWeights = require("./assets/models/jumping-jack/group1-shard1of1.bin");
+      const modelWeights = require("./assets/models/squat/group1-shard1of1.bin");
       console.log("model weights loaded");
       console.log("loading possible exercises and poses");
       //const exercises = require("./assets/exercises.json");
@@ -213,7 +213,7 @@ export default class ClassificationUtil {
     //If the model exists then do classification
     if (this.model) {
       const predictionTensor = this.model.predict(tensor_of_keypoints);
-      //console.log(predictionTensor.dataSync());
+      console.log(predictionTensor.dataSync());
       const [poseName, confidence] = await this.getClassifiedPose(
         predictionTensor,
         this.model_classes

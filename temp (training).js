@@ -130,7 +130,7 @@ export default function App() {
         let keypoints = poses[0].keypoints;
         keypoints.push(poseOption.value);
         let temp = [frameCount, keypoints];
-        frameData.push(temp);
+        frameData.push(keypoints);
         frameCount++;
       }
       const keypoints = poses[0].keypoints
