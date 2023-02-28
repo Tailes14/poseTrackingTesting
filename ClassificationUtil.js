@@ -66,10 +66,10 @@ export default class ClassificationUtil {
     const modelPath = "./assets/models/" + exerciseType + "/";
     try {
       console.log("loading model.json");
-      const modelJSON = require("./assets/models/squat/model.json");
+      const modelJSON = require("./assets/models/jumping-jack/model.json");
       console.log("model.json loaded");
       console.log("loading model weights");
-      const modelWeights = require("./assets/models/squat/group1-shard1of1.bin");
+      const modelWeights = require("./assets/models/jumping-jack/group1-shard1of1.bin");
       console.log("model weights loaded");
       console.log("loading possible exercises and poses");
       //const exercises = require("./assets/exercises.json");
@@ -213,7 +213,7 @@ export default class ClassificationUtil {
     //If the model exists then do classification
     if (this.model) {
       const predictionTensor = this.model.predict(tensor_of_keypoints);
-      console.log(predictionTensor.dataSync());
+      //console.log(predictionTensor.dataSync());
       const [poseName, confidence] = await this.getClassifiedPose(
         predictionTensor,
         this.model_classes
@@ -508,16 +508,8 @@ export default class ClassificationUtil {
     if (pose.length > 0) {
       //define a new array
       for (let i = 0; i < 17; i++) {
-        if (pose[0].keypoints[i]["score"] < 0.5) {
-          //if the confidence of the pose is too low
-          //then add a 0 to the array
-          arr_expanded[0].push(0);
-          arr_expanded[0].push(0);
-          continue;
-        } else {
-          arr_expanded[0].push(pose[0].keypoints[i]["x"]);
-          arr_expanded[0].push(pose[0].keypoints[i]["y"]);
-        }
+        arr_expanded[0].push(pose[0].keypoints[i]["x"]);
+        arr_expanded[0].push(pose[0].keypoints[i]["y"]);
       }
     }
 
