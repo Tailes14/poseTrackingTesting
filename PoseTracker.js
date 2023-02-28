@@ -208,7 +208,7 @@ export default function PoseTracker({
           poses
         );
 
-        //console.log("Pose Name: ", poseName, " Confidence: ", confidence);
+        console.log("Pose Name: ", poseName, " Confidence: ", confidence);
 
         if (poseName && confidence && confidence > 0.7) {
           classifiedPose([poseName, confidence]);
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
     position: "relative",
     width: CAM_PREVIEW_WIDTH,
     height: CAM_PREVIEW_HEIGHT,
-    marginTop: Dimensions.get("window").height / 2 - CAM_PREVIEW_HEIGHT / 2,
+    marginTop: Dimensions.get("window").height - CAM_PREVIEW_HEIGHT,
   },
   cameraPreview: {
     height: "100%",
