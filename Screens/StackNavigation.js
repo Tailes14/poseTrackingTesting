@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import firstScreen from "./SelectionScreen";
+import FirstScreen from "./SelectionScreen";
 import App from "../temp(training)";
 import PoseTracker from "../PoseTracker";
-import jumpingJackScreen from "./JumpingJackScreen";
+import JumpingJackScreen from "./JumpingJackScreen";
 
 const Stack = createStackNavigator();
 
@@ -15,8 +15,8 @@ const StackNavigation = () => {
         initialRouteName="Home"
         screenOptions={{
           headerStyle: {
-            width: "100%",
-            aspectRatio: 1,
+            //width: "100%",
+            //aspectRatio: 1,
             backgroundColor: "#3c5ea4",
           },
           headerTintColor: "white",
@@ -29,7 +29,7 @@ const StackNavigation = () => {
       >
         <Stack.Screen
           name="Home"
-          component={firstScreen}
+          component={FirstScreen}
           options={{ title: "Pose Tracker" }}
         />
         <Stack.Screen
@@ -50,7 +50,7 @@ const StackNavigation = () => {
         />
         <Stack.Screen
           name="JumpingJacks"
-          component={jumpingJackScreen}
+          component={JumpingJackScreen}
           options={{}}
         />
       </Stack.Navigator>

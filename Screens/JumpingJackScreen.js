@@ -14,7 +14,7 @@ const IS_ANDROID = Platform.OS === "android";
 const IS_IOS = Platform.OS === "ios";
 const PREVIEW_MARGIN = IS_IOS ? -250 : -200;
 
-export default function jumpingJackScreen({ route }) {
+export default function JumpingJackScreen({ route }) {
   //const { target_pose, target_exercise } = route.params;
 
   const target_pose = "JJ Top";

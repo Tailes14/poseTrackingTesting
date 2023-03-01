@@ -16,7 +16,7 @@ import App from "../temp(training)";
 import { useNavigation } from "@react-navigation/native";
 import PoseTracker from "../PoseTracker";
 
-export default function firstScreen() {
+export default function FirstScreen() {
   // styling; hover and fading attributes
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
   const radioButtonOpacity = React.useRef(new Animated.Value(0)).current;
