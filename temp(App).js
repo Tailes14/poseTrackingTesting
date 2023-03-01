@@ -129,40 +129,35 @@ export default function PoseDetector({ route }) {
 
   //PoseExample components
   return (
-    <View style={styles.container}>
-      <View style={styles.targetname}>
-        <Text style={{ fontSize: 40 }}>Do a Yoga Pose</Text>
-      </View>
-      <View style={styles.tracker}>
-        {renderLoading()}
-        <PoseTracker
-          // Inputs/Props
-          exerciseType={"jumping-jack"}
-          showFps={true}
-          renderKeypoints={true}
-          estimationModelType={"full"}
-          cameraState={cameraType}
-          estimationThreshold={0.5}
-          classificationThreshold={3}
-          resetExercises={false}
-          autoRender={true}
-          estimationSmoothing={true}
-          undefinedPoseName={"UNDEFINED POSE"}
-          undefinedExerciseName={"UNDEFINED EXERCISE"}
-          classificationSmoothingValue={1}
-          movementWindowResetLimit={20}
-          // Outputs/Callbacks
-          isDetecting={handleIsDetecting}
-          isLoading={handleIsLoading}
-          classifiedPoses={handleClassifiedPoses}
-          classifiedPose={handleClassifiedPose}
-          classifiedExercise={handleClassifiedExercise}
-          classifiedExercises={handleClassifiedExercises}
-          learnedPoses={handlePoseList}
-          learnedExercises={handleExerciseList}
-        />
-        <View style={styles.column}>{renderStatusBox()}</View>
-      </View>
+    <View style={styles.tracker}>
+      {renderLoading()}
+      <PoseTracker
+        // Inputs/Props
+        exerciseType={"jumping-jack"}
+        showFps={true}
+        renderKeypoints={true}
+        estimationModelType={"full"}
+        cameraState={cameraType}
+        estimationThreshold={0.5}
+        classificationThreshold={3}
+        resetExercises={false}
+        autoRender={true}
+        estimationSmoothing={true}
+        undefinedPoseName={"UNDEFINED POSE"}
+        undefinedExerciseName={"UNDEFINED EXERCISE"}
+        classificationSmoothingValue={1}
+        movementWindowResetLimit={20}
+        // Outputs/Callbacks
+        isDetecting={handleIsDetecting}
+        isLoading={handleIsLoading}
+        classifiedPoses={handleClassifiedPoses}
+        classifiedPose={handleClassifiedPose}
+        classifiedExercise={handleClassifiedExercise}
+        classifiedExercises={handleClassifiedExercises}
+        learnedPoses={handlePoseList}
+        learnedExercises={handleExerciseList}
+      />
+      <View style={styles.column}>{renderStatusBox()}</View>
     </View>
   );
 }
