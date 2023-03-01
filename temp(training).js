@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     position: "relative",
     width: CAM_PREVIEW_WIDTH,
     height: CAM_PREVIEW_HEIGHT,
-    marginTop: Dimensions.get("window").height - CAM_PREVIEW_HEIGHT,
+    marginTop: Dimensions.get("window").height / 2 - CAM_PREVIEW_HEIGHT / 2,
   },
   cameraPreview: {
     height: "100%",
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
   },
   fpsContainer: {
     position: "absolute",
-    top: 0,
+    top: 10,
     left: 10,
     width: 80,
     alignItems: "center",
