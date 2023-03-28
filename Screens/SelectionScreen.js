@@ -44,6 +44,11 @@ export default function FirstScreen() {
       selectedActionButton === "Jumping Jacks"
     ) {
       navigation.navigate("JumpingJacks");
+    } else if (
+      (selectedPoseButton === "SQTOP" || selectedPoseButton === "SQBOTTOM") &&
+      selectedActionButton === "Squats"
+    ) {
+      navigation.navigate("Squats");
     }
   };
   const trainData = () => {

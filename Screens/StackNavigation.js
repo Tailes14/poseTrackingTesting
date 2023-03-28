@@ -5,6 +5,7 @@ import FirstScreen from "./SelectionScreen";
 import App from "../temp(training)";
 import PoseTracker from "../PoseTracker";
 import JumpingJackScreen from "./JumpingJackScreen";
+import SquatScreen from "./SquatScreen";
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,7 @@ const StackNavigation = () => {
           component={JumpingJackScreen}
           options={{}}
         />
+        <Stack.Screen name="Squats" component={SquatScreen} options={{}} />
       </Stack.Navigator>
     </NavigationContainer>
   );
