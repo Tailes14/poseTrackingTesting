@@ -202,7 +202,7 @@ export default function PoseTracker({
       if (poses) {
         isLoading(false);
       }
-
+      /*
       if (poses.length > 0) {
         var [poseName, confidence] = await classificationUtil.classifyPose(
           poses
@@ -220,11 +220,106 @@ export default function PoseTracker({
           }
         }
       } else {
-        console.log("pose confidence not high enough");
+        //console.log("pose confidence not high enough");
         classifiedPose([undefinedPoseName, 0.0]);
         isDetecting(true);
       }
+      */
 
+      try {
+        if (poses.length > 0) {
+          var [poseName, confidence] = await classificationUtil.classifyPose(
+            poses
+          );
+          var classified_poses = await classificationUtil.classifyPoses(poses);
+          if (poseName && confidence && confidence > 0.7) {
+            classifiedPose([poseName, confidence]);
+            classifiedPoses(classified_poses);
+            //console.log(classified_poses);
+            isDetecting(false);
+
+            if (!resetExercises) {
+              classificationUtil.trackMovement();
+              classificationUtil.classifyExercise();
+              const detectedExercise =
+                classificationUtil.getClassifiedExercise();
+              const detectedExercises =
+                classificationUtil.getClassifiedExercises();
+              if (detectedExercise) {
+                classifiedExercise(detectedExercise);
+                classifiedExercises(detectedExercises);
+                console.log(detectedExercise);
+              } else {
+                classifiedExercise([undefinedExerciseName, 0]);
+                classifiedExercises(detectedExercises);
+              }
+              //isDetecting(true);
+            }
+          }
+        }
+      } catch (error) {
+        console.log("error caught somewhere inside " + error);
+      }
+
+      /*
+      // 1
+      try {
+        //1.1
+        if (poses.length > 0) {
+          //1.2
+          // for single pose
+          try {
+            var [poseName, confidence] = await classificationUtil.classifyPose(
+              poses
+            );
+          } catch {
+            var [poseName, confidence] = [undefinedPoseName, 0.0];
+            console.log("error on try catch 1.2");
+          }
+          //1.3
+          // for complete activity
+          try {
+            var classified_poses = await classificationUtil.classifyPoses(
+              poses
+            );
+          } catch {
+            var tempObject = [{ poseName: undefinedPoseName, confidence: 0.0 }];
+            classifiedPoses(tempObject);
+            console.log("error on try catch 1.3");
+          }
+          // 2
+          if (poseName && confidence && confidence > 0.7) {
+            console.log("2");
+            classifiedPose([poseName, confidence]);
+            classifiedPoses(classified_poses);
+            isDetecting(false);
+            // 3
+            if (!resetExercises) {
+              console.log("3");
+              classificationUtil.trackMovement();
+              classificationUtil.classifyExercise();
+              const detectedExercise = classificationUtil.getDetectedExercise();
+              // 4
+              if (detectedExercise) {
+                classifiedExercise(detectedExercise);
+                classifiedExercises(classificationUtil.getDetectedExercises());
+              } else {
+                console.log("exercise not detected");
+                classificationUtil.resetExercises();
+              }
+              // 5
+              try {
+                classificationUtil.trackUndefinedMovement();
+              } catch {
+                console.log("error on try catch 5");
+              }
+            }
+          }
+        }
+      } catch {
+        console.log("error on try catch 1");
+      }
+      */
       /*
       try {
         if (poses.length > 0) {

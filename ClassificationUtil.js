@@ -73,7 +73,7 @@ export default class ClassificationUtil {
       console.log("model weights loaded");
       console.log("loading possible exercises and poses");
       //const exercises = require("./assets/exercises.json");
-      modelClasses = exerciseOptions[exerciseType].reverse();
+      modelClasses = exerciseOptions[exerciseType]; //.reverse();
       console.log("loaded model classes");
       console.log(modelClasses);
       //const modelClasses = require("./assets/classes.json");
@@ -146,7 +146,7 @@ export default class ClassificationUtil {
         i--;
       }
     }
-    // console.log("Pose Map: ", this.pose_map);
+    console.log("Pose Map: ", this.pose_map);
 
     //---------------------END------------------------------
 
@@ -164,7 +164,7 @@ export default class ClassificationUtil {
       }
       this.exercise_map[encoded_exercise_string] = exercise;
     }
-    // console.log("Exercise Map: ", this.exercise_map);
+    console.log("Exercise Map: ", this.exercise_map);
 
     //---------------------END------------------------------
 
@@ -176,7 +176,7 @@ export default class ClassificationUtil {
     for (var exercise in exercises_) {
       trie.add(exercise);
     }
-    // console.log("Exercise Trie: ", trie.all());
+    console.log("Exercise Trie: ", trie.all());
     this.exercise_trie = trie;
     //---------------------END------------------------------
 
@@ -187,9 +187,12 @@ export default class ClassificationUtil {
       var exercise_name = this.exercise_map[exercise];
       this.classified_exercises[exercise_name] = 0;
     }
+
+    console.log("Classified Exercises: ", this.classified_exercises);
     //---------------------END------------------------------
 
     console.log("loaded classification model");
+    console.log(this.model_classes, this.learned_exercises);
     return [this.model_classes, this.learned_exercises];
   }
 
@@ -429,7 +432,7 @@ export default class ClassificationUtil {
       }
       this.framecounter++;
     }
-    // console.log("Movement Window: ", this.movement_window);
+    //console.log("Movement Window: ", this.movement_window);
   }
 
   //'trackUndefinedMovement'
@@ -494,7 +497,7 @@ export default class ClassificationUtil {
         this.movement_window = []; //empties current movement window
       }
     }
-    //console.log("Trie search: ",results);
+    //console.log("Trie search: ", results);
   }
 
   getClassifiedExercises() {
