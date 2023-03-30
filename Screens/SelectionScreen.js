@@ -38,9 +38,7 @@ export default function FirstScreen() {
 
   const goTest = () => {
     if (
-      (selectedPoseButton === "JJTOP" ||
-        selectedPoseButton === "JJMIDDLE" ||
-        selectedPoseButton === "JJBOTTOM") &&
+      (selectedPoseButton === "JJTOP" || selectedPoseButton === "JJBOTTOM") &&
       selectedActionButton === "Jumping Jacks"
     ) {
       navigation.navigate("JumpingJacks");
@@ -233,11 +231,6 @@ export default function FirstScreen() {
                 <RadioButton.Item
                   label="Jumping Jack Top"
                   value="JJTOP"
-                  labelStyle={styles.radio_style}
-                />
-                <RadioButton.Item
-                  label="Jumping Jack Middle"
-                  value="JJMIDDLE"
                   labelStyle={styles.radio_style}
                 />
                 <RadioButton.Item
