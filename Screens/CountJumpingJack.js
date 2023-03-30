@@ -105,7 +105,7 @@ export default function CountJumpingJack() {
           <View style={styles.orangebox}>
             <View style={styles.row}>
               <Text style={{ fontSize: 30, color: "white" }}>
-                Detecting Exercise...
+                Waiting for Jumping Jack...
               </Text>
             </View>
           </View>

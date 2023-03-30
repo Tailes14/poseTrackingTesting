@@ -105,7 +105,7 @@ export default function CountSquat() {
           <View style={styles.orangebox}>
             <View style={styles.row}>
               <Text style={{ fontSize: 30, color: "white" }}>
-                Detecting Exercise...
+                Waiting for Squat...
               </Text>
             </View>
           </View>
