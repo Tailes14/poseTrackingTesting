@@ -131,7 +131,7 @@ export default function JumpingJackScreen({ route }) {
   return (
     <View style={styles.container}>
       <View style={styles.targetname}>
-        <Text style={{ fontSize: 40 }}>Do a Yoga Pose</Text>
+        <Text style={{ fontSize: 40 }}>Do a Jumping Jack</Text>
       </View>
 
       <View style={styles.tracker}>
