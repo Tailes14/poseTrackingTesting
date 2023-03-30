@@ -231,6 +231,7 @@ export default function PoseTracker({
           var [poseName, confidence] = await classificationUtil.classifyPose(
             poses
           );
+          //console.log(poseName, confidence);
           var classified_poses = await classificationUtil.classifyPoses(poses);
           if (poseName && confidence && confidence > 0.7) {
             classifiedPose([poseName, confidence]);
