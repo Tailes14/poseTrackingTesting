@@ -248,7 +248,7 @@ export default function PoseTracker({
               if (detectedExercise) {
                 classifiedExercise(detectedExercise);
                 classifiedExercises(detectedExercises);
-                console.log(detectedExercise);
+                //console.log(detectedExercise);
               } else {
                 classifiedExercise([undefinedExerciseName, 0]);
                 classifiedExercises(detectedExercises);

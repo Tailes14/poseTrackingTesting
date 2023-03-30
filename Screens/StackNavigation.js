@@ -6,7 +6,9 @@ import App from "../temp(training)";
 import PoseTracker from "../PoseTracker";
 import JumpingJackScreen from "./JumpingJackScreen";
 import SquatScreen from "./SquatScreen";
-import CountExercise from "./CountExercise";
+import CountExercise from "./CountJumpingJack";
+import CountJumpingJack from "./CountJumpingJack";
+import CountSquat from "./CountSquat";
 
 const Stack = createStackNavigator();
 
@@ -56,7 +58,12 @@ const StackNavigation = () => {
           options={{}}
         />
         <Stack.Screen name="Squats" component={SquatScreen} options={{}} />
-        <Stack.Screen name="Counter" component={CountExercise} options={{}} />
+        <Stack.Screen
+          name="CounterJJ"
+          component={CountJumpingJack}
+          options={{}}
+        />
+        <Stack.Screen name="CounterSQ" component={CountSquat} options={{}} />
       </Stack.Navigator>
     </NavigationContainer>
   );

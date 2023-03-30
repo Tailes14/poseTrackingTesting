@@ -49,6 +49,16 @@ export default function FirstScreen() {
       selectedActionButton === "Squats"
     ) {
       navigation.navigate("Squats");
+    } else if (
+      selectedPoseButton === "JJCOUNTPOSE" &&
+      selectedActionButton === "Jumping Jacks"
+    ) {
+      navigation.navigate("CounterJJ");
+    } else if (
+      selectedPoseButton === "SQCOUNTPOSE" &&
+      selectedActionButton === "Squats"
+    ) {
+      navigation.navigate("CounterSQ");
     }
   };
   const trainData = () => {
@@ -235,6 +245,11 @@ export default function FirstScreen() {
                   value="JJBOTTOM"
                   labelStyle={styles.radio_style}
                 />
+                <RadioButton.Item
+                  label="Count Jumping Jack Pose"
+                  value="JJCOUNTPOSE"
+                  labelStyle={styles.radio_style}
+                />
                 <View style={styles.radio_line} />
               </View>
             </RadioButton.Group>
@@ -266,6 +281,11 @@ export default function FirstScreen() {
                 <RadioButton.Item
                   label="Squat Bottom"
                   value="SQBOTTOM"
+                  labelStyle={styles.radio_style}
+                />
+                <RadioButton.Item
+                  label="Count Squat Pose"
+                  value="SQCOUNTPOSE"
                   labelStyle={styles.radio_style}
                 />
                 <View style={styles.radio_line} />
