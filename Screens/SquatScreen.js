@@ -15,10 +15,7 @@ const IS_IOS = Platform.OS === "ios";
 const PREVIEW_MARGIN = IS_IOS ? -250 : -200;
 
 export default function JumpingJackScreen({ route }) {
-  //const { target_pose, target_exercise } = route.params;
-
-  const target_pose = "JJ Top";
-  const target_exercise = null;
+  const { targetPose, targetExercise } = route.params;
 
   const [cameraType, setCameraType] = useState("front");
   const [classifiedPoses, setClassifiedPoses] = useState(null);
@@ -114,15 +111,27 @@ export default function JumpingJackScreen({ route }) {
           </View>
         );
       } else {
-        return (
-          <View style={styles.greenbox}>
-            <View style={styles.row}>
-              <Text style={{ fontSize: 50, color: "white" }}>
-                {classifiedPose[0]}
-              </Text>
+        if (classifiedPose[0] == targetPose) {
+          return (
+            <View style={styles.greenbox}>
+              <View style={styles.row}>
+                <Text style={{ fontSize: 30, color: "white" }}>
+                  Correct Pose! : {classifiedPose[0]}
+                </Text>
+              </View>
             </View>
-          </View>
-        );
+          );
+        } else {
+          return (
+            <View style={styles.redbox}>
+              <View style={styles.row}>
+                <Text style={{ fontSize: 30, color: "white" }}>
+                  Incorrect Pose! : {classifiedPose[0]}, should be {targetPose}
+                </Text>
+              </View>
+            </View>
+          );
+        }
       }
     }
   };
@@ -202,6 +211,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#58a34d",
+    borderWidth: 2,
+    borderRadius: 9,
+    justifyContent: "center",
+    alignContent: "center",
+  },
+  redbox: {
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "#f74343",
     borderWidth: 2,
     borderRadius: 9,
     justifyContent: "center",

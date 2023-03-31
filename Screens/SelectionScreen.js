@@ -38,15 +38,22 @@ export default function FirstScreen() {
 
   const goTest = () => {
     if (
-      (selectedPoseButton === "JJTOP" || selectedPoseButton === "JJBOTTOM") &&
+      (selectedPoseButton === "JJ Top" || selectedPoseButton === "JJ Bottom") &&
       selectedActionButton === "Jumping Jacks"
     ) {
-      navigation.navigate("JumpingJacks");
+      navigation.navigate("JumpingJacks", {
+        targetPose: selectedPoseButton,
+        targetExercise: selectedActionButton,
+      });
     } else if (
-      (selectedPoseButton === "SQTOP" || selectedPoseButton === "SQBOTTOM") &&
+      (selectedPoseButton === "Squat Top" ||
+        selectedPoseButton === "Squat Bottom") &&
       selectedActionButton === "Squats"
     ) {
-      navigation.navigate("Squats");
+      navigation.navigate("Squats", {
+        targetPose: selectedPoseButton,
+        targetExercise: selectedActionButton,
+      });
     } else if (
       selectedPoseButton === "JJCOUNTPOSE" &&
       selectedActionButton === "Jumping Jacks"
@@ -230,12 +237,12 @@ export default function FirstScreen() {
                 <View style={styles.radio_line} />
                 <RadioButton.Item
                   label="Jumping Jack Top"
-                  value="JJTOP"
+                  value="JJ Top"
                   labelStyle={styles.radio_style}
                 />
                 <RadioButton.Item
                   label="Jumping Jack Bottom"
-                  value="JJBOTTOM"
+                  value="JJ Bottom"
                   labelStyle={styles.radio_style}
                 />
                 <RadioButton.Item
@@ -268,12 +275,12 @@ export default function FirstScreen() {
                 <View style={styles.radio_line} />
                 <RadioButton.Item
                   label="Squat Top"
-                  value="SQTOP"
+                  value="Squat Top"
                   labelStyle={styles.radio_style}
                 />
                 <RadioButton.Item
                   label="Squat Bottom"
-                  value="SQBOTTOM"
+                  value="Squat Bottom"
                   labelStyle={styles.radio_style}
                 />
                 <RadioButton.Item
