@@ -104,7 +104,7 @@ export default function JumpingJackScreen({ route }) {
         return (
           <View style={styles.orangebox}>
             <View style={styles.row}>
-              <Text style={{ fontSize: 30, color: "white" }}>
+              <Text style={{ fontSize: 35, color: "white" }}>
                 Detecting Pose...
               </Text>
             </View>
@@ -115,7 +115,7 @@ export default function JumpingJackScreen({ route }) {
           return (
             <View style={styles.greenbox}>
               <View style={styles.row}>
-                <Text style={{ fontSize: 30, color: "white" }}>
+                <Text style={{ fontSize: 35, color: "white" }}>
                   Correct Pose! : {classifiedPose[0]}
                 </Text>
               </View>
@@ -125,8 +125,8 @@ export default function JumpingJackScreen({ route }) {
           return (
             <View style={styles.redbox}>
               <View style={styles.row}>
-                <Text style={{ fontSize: 30, color: "white" }}>
-                  Incorrect Pose! : {classifiedPose[0]}, should be {targetPose}
+                <Text style={{ fontSize: 35, color: "white" }}>
+                  Incorrect Pose! : {classifiedPose[0]}
                 </Text>
               </View>
             </View>

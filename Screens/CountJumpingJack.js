@@ -114,7 +114,7 @@ export default function CountJumpingJack() {
         return (
           <View style={styles.greenbox}>
             <View style={styles.row}>
-              <Text style={{ fontSize: 30, color: "white" }}>
+              <Text style={{ fontSize: 40, color: "white" }}>
                 {classifiedExercise[0]} : {classifiedExercise[1]}
               </Text>
             </View>
