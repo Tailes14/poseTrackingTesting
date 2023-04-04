@@ -161,7 +161,7 @@ export default function FirstScreen() {
         onPressOut={() => setIsHoveredTrain(false)}
         onPress={() => trainData()}
       >
-        <Text style={styles.buttonText}>Train</Text>
+        <Text style={styles.buttonText}>Record</Text>
       </TouchableOpacity>
       <TouchableOpacity>
         <Text style={styles.clear_button} onPress={clearButtons}>
