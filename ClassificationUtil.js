@@ -146,7 +146,7 @@ export default class ClassificationUtil {
         i--;
       }
     }
-    console.log("Pose Map: ", this.pose_map);
+    //console.log("Pose Map: ", this.pose_map);
 
     //---------------------END------------------------------
 
@@ -164,7 +164,7 @@ export default class ClassificationUtil {
       }
       this.exercise_map[encoded_exercise_string] = exercise;
     }
-    console.log("Exercise Map: ", this.exercise_map);
+    //console.log("Exercise Map: ", this.exercise_map);
 
     //---------------------END------------------------------
 
@@ -176,7 +176,7 @@ export default class ClassificationUtil {
     for (var exercise in exercises_) {
       trie.add(exercise);
     }
-    console.log("Exercise Trie: ", trie.all());
+    //console.log("Exercise Trie: ", trie.all());
     this.exercise_trie = trie;
     //---------------------END------------------------------
 
@@ -188,7 +188,7 @@ export default class ClassificationUtil {
       this.classified_exercises[exercise_name] = 0;
     }
 
-    console.log("Classified Exercises: ", this.classified_exercises);
+    //console.log("Classified Exercises: ", this.classified_exercises);
     //---------------------END------------------------------
 
     console.log("loaded classification model");
