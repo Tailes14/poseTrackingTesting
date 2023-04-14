@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Platform } from "react-native";
 import StackNavigation from "./Screens/StackNavigation";
-const IS_ANDROID = Platform.OS === "android";
+
 const IS_IOS = Platform.OS === "ios";
 
 const PREVIEW_MARGIN = IS_IOS ? -250 : -200;

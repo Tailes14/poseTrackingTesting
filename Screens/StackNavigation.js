@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import FirstScreen from "./SelectionScreen";
-import App from "../temp(training)";
+import Training from "../Components/Training";
 import JumpingJackScreen from "./JumpingJackScreen";
 import SquatScreen from "./SquatScreen";
 import CountJumpingJack from "./CountJumpingJack";
@@ -36,7 +36,7 @@ const StackNavigation = () => {
         />
         <Stack.Screen
           name="Training"
-          component={App}
+          component={Training}
           options={{
             headerStyle: {
               backgroundColor: "#3c5ea4",
