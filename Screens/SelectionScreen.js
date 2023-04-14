@@ -1,20 +1,9 @@
-import { abs } from "@tensorflow/tfjs-core";
 import * as React from "react";
 import { RadioButton } from "react-native-paper";
-import {
-  StyleSheet,
-  Button,
-  View,
-  Text,
-  TouchableHighlight,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 import { Animated } from "react-native";
-import App from "../temp(training)";
 import { useNavigation } from "@react-navigation/native";
-import PoseTracker from "../PoseTracker";
 
 export default function FirstScreen() {
   // styling; hover and fading attributes

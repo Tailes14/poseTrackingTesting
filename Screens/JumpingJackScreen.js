@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   ActivityIndicator,
   Platform,
 } from "react-native";
-import StackNavigation from "./StackNavigation";
 import PoseTracker from "../PoseTracker";
-import App from "../temp(training)";
 const IS_ANDROID = Platform.OS === "android";
 const IS_IOS = Platform.OS === "ios";
 const PREVIEW_MARGIN = IS_IOS ? -250 : -200;

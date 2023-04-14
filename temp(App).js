@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
+  Button,
   ActivityIndicator,
   Platform,
 } from "react-native";
-import PoseTracker from "../PoseTracker";
+import PoseTracker from "./PoseTracker";
 
 const IS_ANDROID = Platform.OS === "android";
 const IS_IOS = Platform.OS === "ios";
 
 const PREVIEW_MARGIN = IS_IOS ? -250 : -200;
 
-export default function CountJumpingJack() {
-  const UNDEFINED_POSE = "Undefined Pose";
-  const UNDEFINED_EXERCISE = "Undefined Exercise";
+export default function PoseDetector({ route }) {
+  //const { target_pose, target_exercise } = route.params;
+
+  const target_pose = "JJ Top";
+  const target_exercise = null;
+
   const [cameraType, setCameraType] = useState("front");
   const [classifiedPoses, setClassifiedPoses] = useState(null);
   const [classifiedPose, setClassifiedPose] = useState(["", 0.0]); //This helps avoid rendering problems where
@@ -61,7 +65,6 @@ export default function CountJumpingJack() {
 
   const renderLoading = () => {
     if (isLoading) {
-      // console.log("Loading PoseTracker");
       return (
         <View style={styles.loading}>
           <ActivityIndicator
@@ -77,6 +80,7 @@ export default function CountJumpingJack() {
     }
   };
 
+  //renders the status box based on the above states
   const renderStatusBox = () => {
     //Component Rendering
     //is Loading is passed from the PoseClassifier Component
@@ -99,12 +103,12 @@ export default function CountJumpingJack() {
       //if the confidence is lower than a certain number then
       //render the isDetecting screen.  If we use classificationArray
       //to do this, then we could make a bool function (isDetecting)
-      if (classifiedExercise[0] == UNDEFINED_EXERCISE) {
+      if (isDetecting) {
         return (
           <View style={styles.orangebox}>
             <View style={styles.row}>
               <Text style={{ fontSize: 30, color: "white" }}>
-                Waiting for Jumping Jack...
+                Detecting Pose...
               </Text>
             </View>
           </View>
@@ -113,8 +117,8 @@ export default function CountJumpingJack() {
         return (
           <View style={styles.greenbox}>
             <View style={styles.row}>
-              <Text style={{ fontSize: 40, color: "white" }}>
-                {classifiedExercise[0]} : {classifiedExercise[1]}
+              <Text style={{ fontSize: 50, color: "white" }}>
+                {classifiedPose[0]}
               </Text>
             </View>
           </View>
@@ -123,41 +127,37 @@ export default function CountJumpingJack() {
     }
   };
 
+  //PoseExample components
   return (
-    <View style={styles.container}>
-      <View style={styles.targetname}>
-        <Text style={{ fontSize: 40 }}>Do a Jumping Jack</Text>
-      </View>
-      <View style={styles.tracker}>
-        {renderLoading()}
-        <PoseTracker
-          // Inputs/Props
-          exerciseType={"jumping-jack"}
-          showFps={true}
-          renderKeypoints={true}
-          estimationModelType={"full"}
-          cameraState={cameraType}
-          estimationThreshold={0.3}
-          classificationThreshold={5}
-          resetExercises={false}
-          autoRender={true}
-          estimationSmoothing={true}
-          undefinedPoseName={UNDEFINED_POSE}
-          undefinedExerciseName={UNDEFINED_EXERCISE}
-          classificationSmoothingValue={1}
-          movementWindowResetLimit={20}
-          // Outputs/Callbacks
-          isDetecting={handleIsDetecting}
-          isLoading={handleIsLoading}
-          classifiedPoses={handleClassifiedPoses}
-          classifiedPose={handleClassifiedPose}
-          classifiedExercise={handleClassifiedExercise}
-          classifiedExercises={handleClassifiedExercises}
-          learnedPoses={handlePoseList}
-          learnedExercises={handleExerciseList}
-        />
-        <View style={styles.column}>{renderStatusBox()}</View>
-      </View>
+    <View style={styles.tracker}>
+      {renderLoading()}
+      <PoseTracker
+        // Inputs/Props
+        exerciseType={"squat"}
+        showFps={true}
+        renderKeypoints={true}
+        estimationModelType={"full"}
+        cameraState={cameraType}
+        estimationThreshold={0.5}
+        classificationThreshold={3}
+        resetExercises={false}
+        autoRender={true}
+        estimationSmoothing={true}
+        undefinedPoseName={"UNDEFINED POSE"}
+        undefinedExerciseName={"UNDEFINED EXERCISE"}
+        classificationSmoothingValue={1}
+        movementWindowResetLimit={20}
+        // Outputs/Callbacks
+        isDetecting={handleIsDetecting}
+        isLoading={handleIsLoading}
+        classifiedPoses={handleClassifiedPoses}
+        classifiedPose={handleClassifiedPose}
+        classifiedExercise={handleClassifiedExercise}
+        classifiedExercises={handleClassifiedExercises}
+        learnedPoses={handlePoseList}
+        learnedExercises={handleExerciseList}
+      />
+      <View style={styles.column}>{renderStatusBox()}</View>
     </View>
   );
 }
@@ -202,13 +202,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
-  loading: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    top: 100,
-    zIndex: 200,
-  },
   targetname: {
     flex: 1,
     flexDirection: "row",
@@ -218,6 +211,13 @@ const styles = StyleSheet.create({
   button: {
     position: "relative",
     width: "100%",
+  },
+  loading: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    top: 100,
+    zIndex: 200,
   },
   tracker: {
     position: "absolute",

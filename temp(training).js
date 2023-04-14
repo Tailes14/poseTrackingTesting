@@ -1,15 +1,22 @@
+import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Dimensions, Button } from "react-native";
 import "@tensorflow/tfjs-react-native";
-import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
+import {
+  cameraWithTensors,
+  bundleResourceIO,
+} from "@tensorflow/tfjs-react-native";
 import * as poseDetection from "@tensorflow-models/pose-detection";
 import * as tf from "@tensorflow/tfjs-core";
 import "@tensorflow/tfjs-backend-webgl";
-import { Camera } from "expo-camera";
+import { Camera, CameraType } from "expo-camera";
+import { GLView, ExpoWebGLRenderingContext } from "expo-gl";
 import React, { useState, useEffect, useRef } from "react";
 import Svg, { Circle, Line } from "react-native-svg";
+import * as XLXS from "xlsx";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
-import possiblePoses from "../assets/classes.json";
+
+import ClassificationUtil from "./ClassificationUtil";
 
 // forces all failed promises to be logged, instead of immediately crashing the app with no logs
 global.Promise = require("promise");
@@ -36,12 +43,16 @@ let frameCount = 0;
 
 // variable that holds the possible pose options that can be trained
 // to add more poses, create another value and label, the app will automatically change the select button to include it
-let poseOptions = [];
-possiblePoses.forEach((pose, index) => {
-  poseOptions.push({ value: index, label: pose });
-});
+const poseOptions = [
+  { value: 0, label: "JJ Bottom" },
+  { value: 1, label: "JJ Middle" },
+  { value: 2, label: "JJ Top" },
+  { value: 3, label: "Squat Top" },
+  { value: 4, label: "Squat Bottom" },
+];
 
 export default function App() {
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
   const [fps, setFps] = useState(0);
@@ -266,7 +277,7 @@ export default function App() {
         />
         {renderPose()}
         {/*renderFps()*/}
-        {/*renderFrameCount()*/}
+        {renderFrameCount()}
         {<Button title={poseOption.label} onPress={cyclePoseOptions}></Button>}
         {recording ? (
           <Button title="Stop Tracking & Create JSON" onPress={generateJSON} />
@@ -292,6 +303,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     zIndex: 1,
+    bottom: 100,
   },
   fpsContainer: {
     position: "absolute",

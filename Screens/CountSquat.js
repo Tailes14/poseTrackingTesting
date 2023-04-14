@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Button,
   ActivityIndicator,
   Platform,
 } from "react-native";

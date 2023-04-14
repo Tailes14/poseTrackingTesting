@@ -1,12 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  ActivityIndicator,
-  Platform,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Platform } from "react-native";
 import StackNavigation from "./Screens/StackNavigation";
 const IS_ANDROID = Platform.OS === "android";
 const IS_IOS = Platform.OS === "ios";
