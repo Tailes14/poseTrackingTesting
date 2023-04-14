@@ -35,13 +35,13 @@ let frameData = new Array();
 let frameCount = 0;
 
 // variable that holds the possible pose options that can be trained
-// to add more poses, create another value and label, the app will automatically change the select button to include it
+// to add more poses, add to the classes.json file, the app will automatically change the select button to include it
 let poseOptions = [];
 possiblePoses.forEach((pose, index) => {
   poseOptions.push({ value: index, label: pose });
 });
 
-export default function App() {
+export default function Training() {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
   const [fps, setFps] = useState(0);
@@ -118,8 +118,8 @@ export default function App() {
       if (recording == true) {
         let keypoints = poses[0].keypoints;
         keypoints.push(poseOption.value);
-        let temp = [frameCount, keypoints];
         frameData.push(keypoints);
+        // used to display # of frames recorded if wanted
         frameCount++;
       }
       const keypoints = poses[0].keypoints
@@ -159,8 +159,6 @@ export default function App() {
             const x2 = kp2.x;
             const y2 = kp2.y;
 
-            //console.log(keypoints);
-
             const cx1 = (x1 / getOutputTensorWidth()) * CAM_PREVIEW_WIDTH;
             const cy1 = (y1 / getOutputTensorHeight()) * CAM_PREVIEW_HEIGHT;
             const cx2 = (x2 / getOutputTensorWidth()) * CAM_PREVIEW_WIDTH;
@@ -177,9 +175,7 @@ export default function App() {
                 strokeWidth="1"
               ></Line>
             );
-          } catch {
-            //console.log("point not needed to be drawn");
-          }
+          } catch {}
         });
       return (
         <Svg style={styles.svg}>
@@ -192,6 +188,7 @@ export default function App() {
     }
   };
 
+  // displays fps if wanted
   const renderFps = () => {
     return (
       <View style={styles.fpsContainer}>
@@ -200,6 +197,7 @@ export default function App() {
     );
   };
 
+  // displays frame count if wanted, used for debugging mainly
   const renderFrameCount = () => {
     return (
       <View style={styles.fpsContainer}>
@@ -208,11 +206,13 @@ export default function App() {
     );
   };
 
+  // generates the output file with keypoints and pose option
   const generateJSON = () => {
     setRecording(false);
 
     let i = frameData.length;
 
+    // fixes duplicate frame bug
     while (i--) (i + 1) % 2 === 0 && frameData.splice(i, 1);
 
     const filename = FileSystem.documentDirectory + "JointData.json";
@@ -222,9 +222,7 @@ export default function App() {
       }
     );
 
-    console.log("Frame data is size " + frameData.length);
-    console.log("Frame count is " + frameCount);
-
+    // reseting saved data so that the app doesnt need reloaded to record another pose
     frameData = [];
     frameCount = 0;
   };
