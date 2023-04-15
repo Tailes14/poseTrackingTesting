@@ -1,6 +1,6 @@
 import * as tf from "@tensorflow/tfjs";
 import { bundleResourceIO } from "@tensorflow/tfjs-react-native";
-import exerciseOptions from "./assets/exercises.json";
+import exerciseOptions from "../assets/exercises.json";
 
 export default class ClassificationUtil {
   constructor() {
@@ -58,10 +58,10 @@ export default class ClassificationUtil {
     const modelPath = "./assets/models/" + exerciseType + "/";
     try {
       console.log("loading model.json");
-      const modelJSON = require("./assets/models/jumping-jack/model.json");
+      const modelJSON = require("../assets/models/jumping-jack/model.json");
       console.log("model.json loaded");
       console.log("loading model weights");
-      const modelWeights = require("./assets/models/jumping-jack/group1-shard1of1.bin");
+      const modelWeights = require("../assets/models/jumping-jack/group1-shard1of1.bin");
       console.log("model weights loaded");
       console.log("loading possible exercises and poses");
       //const exercises = require("./assets/exercises.json");
@@ -81,7 +81,7 @@ export default class ClassificationUtil {
       console.log("Error finding model files, could not load model");
     }
 
-    const exercises = require("./assets/exercises.json");
+    const exercises = require("../assets/exercises.json");
     this.learned_exercises = {};
     for (var exercise in exercises) {
       this.learned_exercises[exercise] = exercises[exercise];
