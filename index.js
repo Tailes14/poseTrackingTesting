@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import { registerRootComponent } from "expo";
 
-import MainMenu from "./MainMenu";
+import MainMenu from "./Screens/MainMenu";
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,

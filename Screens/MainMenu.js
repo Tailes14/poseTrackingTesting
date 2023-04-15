@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Platform } from "react-native";
-import StackNavigation from "./Screens/StackNavigation";
+import StackNavigation from "./StackNavigation";
 
 const IS_IOS = Platform.OS === "ios";
 
