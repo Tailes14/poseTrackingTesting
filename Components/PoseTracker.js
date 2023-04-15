@@ -1,22 +1,13 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Dimensions, Button } from "react-native";
-
-import {
-  cameraWithTensors,
-  bundleResourceIO,
-} from "@tensorflow/tfjs-react-native";
+import { cameraWithTensors } from "@tensorflow/tfjs-react-native";
 import * as poseDetection from "@tensorflow-models/pose-detection";
 import * as tf from "@tensorflow/tfjs";
 
-import { Camera, CameraType } from "expo-camera";
-import { GLView, ExpoWebGLRenderingContext } from "expo-gl";
+import { Camera } from "expo-camera";
 import React, { useState, useEffect, useRef } from "react";
 import Svg, { Circle, Line } from "react-native-svg";
-import * as XLXS from "xlsx";
-import * as FileSystem from "expo-file-system";
-import * as Sharing from "expo-sharing";
 
-import ClassificationUtil from "./Components/ClassificationUtil";
+import ClassificationUtil from "./ClassificationUtil";
 
 // forces all failed promises to be logged, instead of immediately crashing the app with no logs
 global.Promise = require("promise");
@@ -68,7 +59,6 @@ export default function PoseTracker({
   isDetecting,
   isLoading,
 }) {
-  const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.front);
   const cameraRef = useRef(null);
   const [fps, setFps] = useState(0);
@@ -202,29 +192,6 @@ export default function PoseTracker({
       if (poses) {
         isLoading(false);
       }
-      /*
-      if (poses.length > 0) {
-        var [poseName, confidence] = await classificationUtil.classifyPose(
-          poses
-        );
-
-        console.log("Pose Name: ", poseName, " Confidence: ", confidence);
-
-        if (poseName && confidence && confidence > 0.7) {
-          classifiedPose([poseName, confidence]);
-          //console.log("Pose Name: ", poseName, " Confidence: ", confidence);
-          isDetecting(false);
-
-          if (!resetExercises) {
-            //classificationUtil.trackMovement();
-          }
-        }
-      } else {
-        //console.log("pose confidence not high enough");
-        classifiedPose([undefinedPoseName, 0.0]);
-        isDetecting(true);
-      }
-      */
 
       try {
         if (poses.length > 0) {
@@ -262,113 +229,6 @@ export default function PoseTracker({
         console.log("error caught somewhere inside " + error);
       }
 
-      /*
-      // 1
-      try {
-        //1.1
-        if (poses.length > 0) {
-          //1.2
-          // for single pose
-          try {
-            var [poseName, confidence] = await classificationUtil.classifyPose(
-              poses
-            );
-          } catch {
-            var [poseName, confidence] = [undefinedPoseName, 0.0];
-            console.log("error on try catch 1.2");
-          }
-          //1.3
-          // for complete activity
-          try {
-            var classified_poses = await classificationUtil.classifyPoses(
-              poses
-            );
-          } catch {
-            var tempObject = [{ poseName: undefinedPoseName, confidence: 0.0 }];
-            classifiedPoses(tempObject);
-            console.log("error on try catch 1.3");
-          }
-          // 2
-          if (poseName && confidence && confidence > 0.7) {
-            console.log("2");
-            classifiedPose([poseName, confidence]);
-            classifiedPoses(classified_poses);
-            isDetecting(false);
-            // 3
-            if (!resetExercises) {
-              console.log("3");
-              classificationUtil.trackMovement();
-              classificationUtil.classifyExercise();
-              const detectedExercise = classificationUtil.getDetectedExercise();
-              // 4
-              if (detectedExercise) {
-                classifiedExercise(detectedExercise);
-                classifiedExercises(classificationUtil.getDetectedExercises());
-              } else {
-                console.log("exercise not detected");
-                classificationUtil.resetExercises();
-              }
-              // 5
-              try {
-                classificationUtil.trackUndefinedMovement();
-              } catch {
-                console.log("error on try catch 5");
-              }
-            }
-          }
-        }
-      } catch {
-        console.log("error on try catch 1");
-      }
-      */
-      /*
-      try {
-        if (poses.length > 0) {
-          try {
-            var [poseName, confidence] = await classificationUtil.classifiyPose(
-              poses
-            );
-            console.log("posename :" + poseName);
-          } catch {
-            var [poseName, confidence] = [undefinedPoseName, 0.0];
-            //console.log("No pose detected");
-          }
-          try {
-            var classified_poses = await classificationUtil.classifyPoses(
-              poses
-            );
-          } catch {
-            var temp_object = [
-              { poseName: undefinedPoseName, confidence: 0.0 },
-            ];
-            classifiedPoses(temp_object);
-          }
-          if (poseName && confidence && confidence > classificationThreshold) {
-            classifiedPose([poseName, confidence]);
-            classifiedPoses(classified_poses);
-            isDetecting(false);
-            if (!resetExercises) {
-              classificationUtil.trackMovement();
-              classificationUtil.classifyExercise();
-              const detectedExercise = classificationUtil.getDetectedExercise();
-              if (detectedExercise) {
-                classifiedExercise(detectedExercise);
-                classifiedExercises(classificationUtil.getDetectedExercises());
-              } else {
-                classificationUtil.resetExercises();
-              }
-            } else {
-              if (resetExercises) {
-                classificationUtil.resetExercises();
-              }
-              try {
-                classificationUtil.trackUndefinedMovement();
-              } catch {}
-            }
-          }
-        }
-      } catch {}
-      */
       tf.dispose([nextImageTensor]);
 
       if (rafId.current === 0) {
@@ -388,14 +248,11 @@ export default function PoseTracker({
       const keypoints = poses[0].keypoints
         .filter((k) => (k.score ?? 0) > 0.5)
         .map((k) => {
-          // console.log(k);
           const flipX = IS_ANDROID || type === Camera.Constants.Type.back;
           const x = flipX ? getOutputTensorWidth() - k.x : k.x;
           const y = k.y;
           const cx = (x / getOutputTensorWidth()) * CAM_PREVIEW_WIDTH;
           const cy = (y / getOutputTensorHeight()) * CAM_PREVIEW_HEIGHT;
-
-          //console.log(k);
 
           return (
             <Circle
@@ -425,8 +282,6 @@ export default function PoseTracker({
             const x2 = kp2.x;
             const y2 = kp2.y;
 
-            //console.log(keypoints);
-
             const cx1 = (x1 / getOutputTensorWidth()) * CAM_PREVIEW_WIDTH;
             const cy1 = (y1 / getOutputTensorHeight()) * CAM_PREVIEW_HEIGHT;
             const cx2 = (x2 / getOutputTensorWidth()) * CAM_PREVIEW_WIDTH;
@@ -443,9 +298,7 @@ export default function PoseTracker({
                 strokeWidth="1"
               ></Line>
             );
-          } catch {
-            //console.log("point not needed to be drawn");
-          }
+          } catch {}
         });
       return (
         <Svg style={styles.svg}>

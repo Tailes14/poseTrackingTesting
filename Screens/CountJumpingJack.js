@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   Platform,
 } from "react-native";
-import PoseTracker from "../PoseTracker";
+import PoseTracker from "../Components/PoseTracker";
 
 const IS_ANDROID = Platform.OS === "android";
 const IS_IOS = Platform.OS === "ios";
