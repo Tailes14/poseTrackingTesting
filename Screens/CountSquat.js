@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import PoseTracker from "../PoseTracker";
 
-const IS_ANDROID = Platform.OS === "android";
 const IS_IOS = Platform.OS === "ios";
 
 const PREVIEW_MARGIN = IS_IOS ? -250 : -200;

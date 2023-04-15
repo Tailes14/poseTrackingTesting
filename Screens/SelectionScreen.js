@@ -1,7 +1,6 @@
 import * as React from "react";
 import { RadioButton } from "react-native-paper";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-
 import { Animated } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
